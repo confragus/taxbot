@@ -1,102 +1,112 @@
+<!DOCTYPE html>
+
 <html>
-<head>
-  <link href="./styles.css" type="text/css" rel="stylesheet">
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script type="text/javascript">
+  <head>
+    <link href="./styles.css" type="text/css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
 
-  </script>
-</head>
+    </script>
 
-Taxable income: <input type="text" id="user_income" value="50000">
+    <title>tax_bot</title>
+  </head>
 
-<p>net income: <span id="s_net_income"></span></p>
-<p>per month: <span id="s_net_income_pm"></span></p>
-<p>per week: <span id="s_net_income_pw"></span></p>
+  <body>
+    <div class="title"><h1>tax_bot</h1></div>
 
-</br>
+    Taxable income: <input type="text" id="user_income" value="50000">
 
-<p>tax percent: <span id="s_percent_tax"></span></p>
-<p>tax total: <span id="s_total_tax"></span></p>
-<p>income_tax: <span id="s_income_tax"></span></p>
-<p>medicare: <span id="s_medicare"></span></p>
-<p>tax offset: <span id="s_tax_offset"></span></p>
+    <p>net income: <span id="s_net_income"></span></p>
+    <p>per month: <span id="s_net_income_pm"></span></p>
+    <p>per week: <span id="s_net_income_pw"></span></p>
 
-</br>
+    </br>
 
-<script>
-  function f_income_tax(taxable){
-    if( taxable <= 18200) {
-      return 0;
-    }
-    if( taxable <= 37000) {
-      return (taxable-18200)*.19;
-    }
-    if( taxable <= 90000) {
-      return (taxable-37000)*.325+3572;
-    }
-    if( taxable <= 18000) {
-      return (taxable-90000)*.37+20797;
-    }
-    if( taxable > 18000) {
-      return (taxable-18000)*.45+54097;
-    }
-  }
+    <p>tax percent: <span id="s_percent_tax"></span></p>
+    <p>tax total: <span id="s_total_tax"></span></p>
+    <p>income_tax: <span id="s_income_tax"></span></p>
+    <p>medicare: <span id="s_medicare"></span></p>
+    <p>tax offset: <span id="s_tax_offset"></span></p>
 
-  function f_medicare(taxable){
-    if( taxable <= 21980) {
-      return 0;
-    }
-    if (taxable <= 27475) {
-      return 0.1*(taxable-21980);
-    }
-    else {
-      return 0.02*taxable;
-    }
-  }
+    </br>
 
-  function f_low_income(taxable){
-    if( taxable <= 37000) {
-      return 445;
-    }
-    if (taxable <= 66667) {
-      return 445 - 0.015*(taxable - 37000);
-    }
-    else {
-      return 0
-    }
-  }
+    <script>
+      function f_income_tax(taxable){
+        if( taxable <= 18200) {
+          return 0;
+        }
+        if( taxable <= 37000) {
+          return (taxable-18200)*.19;
+        }
+        if( taxable <= 90000) {
+          return (taxable-37000)*.325+3572;
+        }
+        if( taxable <= 18000) {
+          return (taxable-90000)*.37+20797;
+        }
+        if( taxable > 18000) {
+          return (taxable-18000)*.45+54097;
+        }
+      }
 
-  function f_tax_percent(taxable){
-    return (f_income_tax(taxable) + f_medicare(taxable) - f_low_income(taxable)) / taxable
-  }
+      function f_medicare(taxable){
+        if( taxable <= 21980) {
+          return 0;
+        }
+        if (taxable <= 27475) {
+          return 0.1*(taxable-21980);
+        }
+        else {
+          return 0.02*taxable;
+        }
+      }
 
-  var user_income = document.getElementById('user_income');
-  var income_tax = document.getElementById('s_income_tax');
-  var medicare = document.getElementById('s_medicare');
-  var percent_tax = document.getElementById('s_percent_tax');
-  var total_tax = document.getElementById('s_total_tax');
-  var net_income = document.getElementById('s_net_income');
-  var tax_offset = document.getElementById('s_tax_offset');
-  var net_income_pm = document.getElementById('s_net_income_pm');
-  var net_income_pw = document.getElementById('s_net_income_pw');
+      function f_low_income(taxable){
+        if( taxable <= 37000) {
+          return 445;
+        }
+        if (taxable <= 66667) {
+          return 445 - 0.015*(taxable - 37000);
+        }
+        else {
+          return 0
+        }
+      }
 
-  function parse_html(){
-    income_tax.innerHTML = f_income_tax(user_income.value);
-    medicare.innerHTML = f_medicare(user_income.value);
-    tax_offset.innerHTML = -f_low_income(user_income.value)
-    total_tax.innerHTML = parseFloat(income_tax.innerHTML) +
-                          parseFloat(medicare.innerHTML) +
-                          parseFloat(tax_offset.innerHTML);
-    percent_tax.innerHTML =  f_tax_percent(user_income.value);
-    net_income.innerHTML = user_income.value - parseFloat(total_tax.innerHTML);
-    net_income_pm.innerHTML = parseFloat(net_income.innerHTML)/12;
-    net_income_pw.innerHTML = parseFloat(net_income.innerHTML)/52;
-  }
+      function f_tax_percent(taxable){
+        return (f_income_tax(taxable) + f_medicare(taxable) - f_low_income(taxable)) / taxable
+      }
 
-  user_income.addEventListener("keyup", function(event){
-    parse_html();
-  });
+      var user_income = document.getElementById('user_income');
+      var income_tax = document.getElementById('s_income_tax');
+      var medicare = document.getElementById('s_medicare');
+      var percent_tax = document.getElementById('s_percent_tax');
+      var total_tax = document.getElementById('s_total_tax');
+      var net_income = document.getElementById('s_net_income');
+      var tax_offset = document.getElementById('s_tax_offset');
+      var net_income_pm = document.getElementById('s_net_income_pm');
+      var net_income_pw = document.getElementById('s_net_income_pw');
 
-  parse_html();
+      function parse_html(){
+        income_tax.innerHTML = f_income_tax(user_income.value);
+        medicare.innerHTML = f_medicare(user_income.value);
+        tax_offset.innerHTML = -f_low_income(user_income.value)
+        total_tax.innerHTML = parseFloat(income_tax.innerHTML) +
+                              parseFloat(medicare.innerHTML) +
+                              parseFloat(tax_offset.innerHTML);
+        percent_tax.innerHTML =  f_tax_percent(user_income.value);
+        net_income.innerHTML = user_income.value - parseFloat(total_tax.innerHTML);
+        net_income_pm.innerHTML = parseFloat(net_income.innerHTML)/12;
+        net_income_pw.innerHTML = parseFloat(net_income.innerHTML)/52;
+      }
 
-</script>
+      user_income.addEventListener("keyup", function(event){
+        parse_html();
+      });
+
+      parse_html();
+
+    </script>
+  </body>
+</html>

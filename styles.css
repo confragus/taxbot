@@ -1,4 +1,30 @@
+/*
+Colours :
+#88bdbc
+#254E58
+#112D32
+#6E6658
+#4F4A41
+*/
+
 body {
-  background-color: black;
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+  background-color: #88bdbc;
   color: white;
+}
+
+.title {
+  background-color: #4F4A41;
+  text-align: center;
+  width: 75%;
+  margin: auto;
+}
+
+.title h1 {
+  margin: 0px;
+  padding: 0px;
+  font-family: "Titillium Web";
+  font-size: 1.5em;
 }
