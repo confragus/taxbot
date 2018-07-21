@@ -1,5 +1,6 @@
 <html>
 <head>
+  <link href="./styles.css" type="text/css" rel="stylesheet">
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript">
 
@@ -83,10 +84,10 @@ Taxable income: <input type="text" id="user_income" value="50000">
     income_tax.innerHTML = f_income_tax(user_income.value);
     medicare.innerHTML = f_medicare(user_income.value);
     tax_offset.innerHTML = -f_low_income(user_income.value)
-    total_tax.innerHTML = parseFloat(income_tax.innerHTML) + 
-                          parseFloat(medicare.innerHTML) + 
+    total_tax.innerHTML = parseFloat(income_tax.innerHTML) +
+                          parseFloat(medicare.innerHTML) +
                           parseFloat(tax_offset.innerHTML);
-    percent_tax.innerHTML =  f_tax_percent(user_income.value);                  
+    percent_tax.innerHTML =  f_tax_percent(user_income.value);
     net_income.innerHTML = user_income.value - parseFloat(total_tax.innerHTML);
     net_income_pm.innerHTML = parseFloat(net_income.innerHTML)/12;
     net_income_pw.innerHTML = parseFloat(net_income.innerHTML)/52;
