@@ -15,11 +15,20 @@ body {
   color: white;
 }
 
+/* Navbar_start */
+.grid-navbar {
+  display: grid;
+  grid-gap: 0px;
+  grid-template-columns: 1fr, 1fr, 5fr, 1fr, 1fr;
+  grid-template-areas:
+    "navbar-left navbar-left title navbar-right navbar-right";
+}
+
 .title {
   background-color: #4F4A41;
   text-align: center;
-  width: 75%;
-  margin: auto;
+  width: auto;
+  grid-area: title;
 }
 
 .title h1 {
@@ -28,3 +37,16 @@ body {
   font-family: "Titillium Web";
   font-size: 1.5em;
 }
+
+.navbar-left {
+  background-color: #6E6658;
+  width: auto;
+  grid-area: navbar-left;
+}
+
+.navbar-right {
+  background-color: #6E6658;
+  width: auto;
+  grid-area: navbar-right;
+}
+/* Navbar_end */
