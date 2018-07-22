@@ -1,52 +1,59 @@
 /*
-Colours :
-#88bdbc
-#254E58
-#112D32
-#6E6658
-#4F4A41
+Colors:
+#333333
+#222222
+#111111
+#ffab1c
+
+Fonts:
+Titillium Web
+Noto Sans
 */
 
 body {
-  box-sizing: border-box;
-  padding: 0px;
-  margin: 0px;
-  background-color: #88bdbc;
-  color: white;
+  padding: 0;
+  margin: 0;
+  background-color: #222222;
 }
 
 /* Navbar_start */
-.grid-navbar {
-  display: grid;
-  grid-gap: 0px;
-  grid-template-columns: 1fr, 1fr, 5fr, 1fr, 1fr;
-  grid-template-areas:
-    "navbar-left navbar-left title navbar-right navbar-right";
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333333;
 }
 
-.title {
-  background-color: #4F4A41;
-  text-align: center;
-  width: auto;
-  grid-area: title;
+#title {
+  float: left;
 }
 
-.title h1 {
-  margin: 0px;
-  padding: 0px;
+#title a {
+  background-color: #111111;
+  color: #ffab1c;
   font-family: "Titillium Web";
+  font-weight: 700;
   font-size: 1.5em;
+  padding: 0px 20px;
 }
 
-.navbar-left {
-  background-color: #6E6658;
-  width: auto;
-  grid-area: navbar-left;
+li {
+  float: left;
 }
 
-.navbar-right {
-  background-color: #6E6658;
-  width: auto;
-  grid-area: navbar-right;
+li a {
+  display: block;
+  color: #111111;
+  text-align: center;
+  padding: 5px 20px;
+  text-decoration: none;
+  font-family: "Noto Sans";
+  font-size: 1em;
+  padding-top: 8px;
+}
+
+li a:hover {
+  color: #ffab1c;
 }
 /* Navbar_end */

@@ -3,7 +3,8 @@
 <html>
   <head>
     <link href="./styles.css" type="text/css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700" rel="stylesheet">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
 
@@ -13,13 +14,13 @@
   </head>
 
   <body>
-    <div class="grid-navbar">
-      <div class="navbar-left"></div>
-      <div class="title"><h1>tax_bot</h1></div>
-      <div class="navbar-right"></div>
-    </div>
+    <ul>
+      <li id="title"><a href="#">tax_bot</a></li>
+      <li><a href="#">More Information</a></li>
+      <li><a href="#">About Us</a></li>
+    </ul>
 
-    Taxable income: <input type="text" id="user_income" value="50000">
+    Taxable income:<input type="text" id="user_income" value="50000">
 
     <p>net income: <span id="s_net_income"></span></p>
     <p>per month: <span id="s_net_income_pm"></span></p>
