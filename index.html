@@ -25,14 +25,15 @@
       <div class="limiter-2">
         <div class="grid-calc">
           <div class="item1">
-            <span>Taxable income:</span><input type="text" id="user_income" value="50000">
+            <span class="input-title">YOUR TAXABLE INCOME</span>
+            <input type="text" id="user_income" value="50000">
           </div>
           <div class="item2">
-            <table class="table-income">
+            <table>
               <tr>
-                <th id="table-income-title" colspan="2">INCOME</th>
+                <th class="table-title" colspan="2">INCOME</th>
               </tr>
-              <tr>
+              <tr class="table-important">
                 <th>Net Income</th>
                 <td>$<span id="s_net_income"></span></td>
               </tr>
@@ -47,11 +48,31 @@
             </table>
           </div>
           <div class="item3">
-            <p>tax percent: <span id="s_percent_tax"></span></p>
-            <p>tax total: <span id="s_total_tax"></span></p>
-            <p>income_tax: <span id="s_income_tax"></span></p>
-            <p>medicare: <span id="s_medicare"></span></p>
-            <p>tax offset: <span id="s_tax_offset"></span></p>
+            <table>
+              <tr>
+                <th class="table-title" colspan="2">TAX</th>
+              </tr>
+              <tr class="table-important">
+                <th>Total</th>
+                <td>$<span id="s_total_tax"></span></td>
+              </tr>
+              <tr>
+                <th>Tax Percentage</th>
+                <td><span id="s_percent_tax"></span>%</td>
+              </tr>
+              <tr>
+                <th>Income Tax</th>
+                <td>$<span id="s_income_tax"></span></td>
+              </tr>
+              <tr>
+                <th>Medicare</th>
+                <td>$<span id="s_medicare"></span></td>
+              </tr>
+              <tr>
+                <th>Tax Offset</th>
+                <td><span id="s_tax_offset"></span></td>
+              </tr>
+            </table>
           </div>
         </div>
       </div>
@@ -112,18 +133,28 @@
       var tax_offset = document.getElementById('s_tax_offset');
       var net_income_pm = document.getElementById('s_net_income_pm');
       var net_income_pw = document.getElementById('s_net_income_pw');
+      var net_income_uc;
+      var net_income_pm_uc;
+      var net_income_pw_uc;
+      var percent_tax_uc;
+      var tax_offset_uc;
 
       function parse_html(){
         income_tax.innerHTML = f_income_tax(user_income.value);
         medicare.innerHTML = f_medicare(user_income.value);
-        tax_offset.innerHTML = -f_low_income(user_income.value)
+        tax_offset_uc = f_low_income(user_income.value)
+        tax_offset.innerHTML = "-$" + tax_offset_uc;
         total_tax.innerHTML = parseFloat(income_tax.innerHTML) +
-                              parseFloat(medicare.innerHTML) +
-                              parseFloat(tax_offset.innerHTML);
-        percent_tax.innerHTML =  f_tax_percent(user_income.value);
-        net_income.innerHTML = user_income.value - parseFloat(total_tax.innerHTML);
-        net_income_pm.innerHTML = parseFloat(net_income.innerHTML)/12;
-        net_income_pw.innerHTML = parseFloat(net_income.innerHTML)/52;
+                              parseFloat(medicare.innerHTML) -
+                              parseFloat(tax_offset_uc);
+        percent_tax_uc =  f_tax_percent(user_income.value);
+        percent_tax.innerHTML = percent_tax_uc.toPrecision(4);
+        net_income_uc = user_income.value - parseFloat(total_tax.innerHTML);
+        net_income.innerHTML = net_income_uc.toFixed(2);
+        net_income_pm_uc = parseFloat(net_income.innerHTML)/12;
+        net_income_pm.innerHTML = net_income_pm_uc.toFixed(2);
+        net_income_pw_uc = parseFloat(net_income.innerHTML)/52;
+        net_income_pw.innerHTML = net_income_pw_uc.toFixed(2);
       }
 
       user_income.addEventListener("keyup", function(event){
