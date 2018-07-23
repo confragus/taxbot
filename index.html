@@ -14,28 +14,48 @@
   </head>
 
   <body>
-    <ul>
-      <li id="title"><a href="#">tax_bot</a></li>
-      <li><a href="#">More Information</a></li>
-      <li><a href="#">About Us</a></li>
-    </ul>
+    <div class="limiter">
+      <h1 class="title"><a href="#">tax_bot</a></h1>
 
-    Taxable income:<input type="text" id="user_income" value="50000">
+      <ul>
+        <li><a href="#">MORE INFORMATION</a></li>
+        <li><a href="#">ABOUT US</a></li>
+      </ul>
 
-    <p>net income: <span id="s_net_income"></span></p>
-    <p>per month: <span id="s_net_income_pm"></span></p>
-    <p>per week: <span id="s_net_income_pw"></span></p>
-
-    </br>
-
-    <p>tax percent: <span id="s_percent_tax"></span></p>
-    <p>tax total: <span id="s_total_tax"></span></p>
-    <p>income_tax: <span id="s_income_tax"></span></p>
-    <p>medicare: <span id="s_medicare"></span></p>
-    <p>tax offset: <span id="s_tax_offset"></span></p>
-
-    </br>
-
+      <div class="limiter-2">
+        <div class="grid-calc">
+          <div class="item1">
+            <span>Taxable income:</span><input type="text" id="user_income" value="50000">
+          </div>
+          <div class="item2">
+            <table class="table-income">
+              <tr>
+                <th id="table-income-title" colspan="2">INCOME</th>
+              </tr>
+              <tr>
+                <th>Net Income</th>
+                <td>$<span id="s_net_income"></span></td>
+              </tr>
+              <tr>
+                <th>Income / month</th>
+                <td>$<span id="s_net_income_pm"></span></td>
+              </tr>
+              <tr>
+                <th>Income / week</th>
+                <td>$<span id="s_net_income_pw"></span></td>
+              </tr>
+            </table>
+          </div>
+          <div class="item3">
+            <p>tax percent: <span id="s_percent_tax"></span></p>
+            <p>tax total: <span id="s_total_tax"></span></p>
+            <p>income_tax: <span id="s_income_tax"></span></p>
+            <p>medicare: <span id="s_medicare"></span></p>
+            <p>tax offset: <span id="s_tax_offset"></span></p>
+          </div>
+        </div>
+      </div>
+    </div>
     <script>
       function f_income_tax(taxable){
         if( taxable <= 18200) {
