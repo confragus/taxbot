@@ -49,8 +49,7 @@ li a {
   text-decoration: none;
   font-family: "Noto Sans";
   font-size: 0.8em;
-  transition: background-color 0.3s;
-  transition: color 0.3s;
+  transition: background-color 0.4s, color 0.4s;
 }
 
 li a:hover {
@@ -102,6 +101,8 @@ li a:hover {
 #user_income {
   width: 100%;
   text-align: center;
+  margin-top: 5px;
+  padding: 5px;
   border-style: none;
   font-size: 1.1em;
   transition: background-color 0.5s;
@@ -134,7 +135,7 @@ table {
 }
 
 th, td {
-  border-style: solid;
+  border-bottom-style: solid;
   border-color: #151515;
   border-width: 0.5px;
   padding: 7px 0;

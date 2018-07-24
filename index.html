@@ -5,6 +5,8 @@
     <link href="./styles.css" type="text/css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
 
@@ -133,27 +135,35 @@
       var tax_offset = document.getElementById('s_tax_offset');
       var net_income_pm = document.getElementById('s_net_income_pm');
       var net_income_pw = document.getElementById('s_net_income_pw');
+      var income_tax_uc;
+      var medicare_uc;
+      var percent_tax_uc;
+      var total_tax_uc;
       var net_income_uc;
+      var tax_offset_uc;
       var net_income_pm_uc;
       var net_income_pw_uc;
-      var percent_tax_uc;
-      var tax_offset_uc;
+
 
       function parse_html(){
-        income_tax.innerHTML = f_income_tax(user_income.value);
-        medicare.innerHTML = f_medicare(user_income.value);
+        income_tax_uc = f_income_tax(user_income.value);
+        medicare_uc = f_medicare(user_income.value);
         tax_offset_uc = f_low_income(user_income.value)
-        tax_offset.innerHTML = "-$" + tax_offset_uc;
-        total_tax.innerHTML = parseFloat(income_tax.innerHTML) +
-                              parseFloat(medicare.innerHTML) -
-                              parseFloat(tax_offset_uc);
-        percent_tax_uc =  f_tax_percent(user_income.value);
+        total_tax_uc = parseFloat(income_tax_uc) +
+                       parseFloat(medicare_uc) -
+                       parseFloat(tax_offset_uc);
+        percent_tax_uc =  f_tax_percent(user_income.value) * 100;
+        net_income_uc = user_income.value - parseFloat(total_tax_uc);
+        net_income_pm_uc = parseFloat(net_income_uc)/12;
+        net_income_pw_uc = parseFloat(net_income_uc)/52;
+
+        income_tax.innerHTML = income_tax_uc.toFixed(2);
+        medicare.innerHTML = medicare_uc.toFixed(2);
+        tax_offset.innerHTML = "(-$" + tax_offset_uc.toFixed(2) + ")";
+        total_tax.innerHTML = total_tax_uc.toFixed(2);
         percent_tax.innerHTML = percent_tax_uc.toPrecision(4);
-        net_income_uc = user_income.value - parseFloat(total_tax.innerHTML);
         net_income.innerHTML = net_income_uc.toFixed(2);
-        net_income_pm_uc = parseFloat(net_income.innerHTML)/12;
         net_income_pm.innerHTML = net_income_pm_uc.toFixed(2);
-        net_income_pw_uc = parseFloat(net_income.innerHTML)/52;
         net_income_pw.innerHTML = net_income_pw_uc.toFixed(2);
       }
 
