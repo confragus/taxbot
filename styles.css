@@ -10,7 +10,7 @@ Noto Sans
 body {
   padding: 0;
   margin: 0;
-  background-color: #222222;
+  background-color: #222;
   font-family: "Noto Sans";
 }
 
@@ -49,6 +49,8 @@ li a {
   text-decoration: none;
   font-family: "Noto Sans";
   font-size: 0.8em;
+  transition: background-color 0.3s;
+  transition: color 0.3s;
 }
 
 li a:hover {
@@ -102,6 +104,7 @@ li a:hover {
   text-align: center;
   border-style: none;
   font-size: 1.1em;
+  transition: background-color 0.5s;
 }
 
 #user_income:focus {
@@ -131,16 +134,21 @@ table {
 }
 
 th, td {
-  border-bottom-style: solid;
+  border-style: solid;
   border-color: #151515;
   border-width: 0.5px;
   padding: 7px 0;
   font-size: 0.8em;
   font-weight: lighter;
+  transition: background-color 0.3s;
 }
 
 th {
   background-color: #151515;
   color: #FFF;
   width: 40%;
+}
+
+td:hover {
+  background-color: #333;
 }
