@@ -2,6 +2,7 @@
 Colors:
 #ffab1c
 #ffe3b5
+#914545
 Fonts:
 Titillium Web
 Noto Sans
@@ -145,6 +146,10 @@ table {
 .table-important th, .table-important td {
   font-size: 1.1em;
   color: #ffab1c;
+}
+
+#s_tax_offset {
+  color: #c46666;
 }
 
 th, td {
