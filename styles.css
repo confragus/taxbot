@@ -112,6 +112,17 @@ li a:hover {
   color: #FFF;
 }
 
+.division-title {
+  margin: 0;
+  padding: 0;
+  margin-top: 30px;
+  margin-bottom: -30px;
+  color: #ffab1c;
+  font-size: 1.2em;
+  font-weight: lighter;
+  text-align: left;
+}
+
 #user_income {
   width: 100%;
   text-align: center;
@@ -170,16 +181,6 @@ th {
 
 td:hover {
   background-color: #333;
-}
-
-.division-title {
-  margin: 0;
-  padding: 0;
-  margin-top: 30px;
-  margin-bottom: -30px;
-  color: #ffab1c;
-  font-size: 1.2em;
-  font-weight: lighter;
 }
 
 .graph-pie {

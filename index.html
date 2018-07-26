@@ -79,7 +79,7 @@
           </div>
           <div class="item4 division-line"><h2 class="division-title">Graphs</h2></div>
           <div class="item5 graph-pie">
-            <canvas id="myChart" width="undefined" height="undefined"></canvas>
+            <canvas id="pieChart" width="undefined" height="undefined"></canvas>
           </div>
         </div>
       </div>
@@ -152,7 +152,7 @@
       function parse_html(){
         income_tax_uc = f_income_tax(user_income.value);
         medicare_uc = f_medicare(user_income.value);
-        tax_offset_uc = f_low_income(user_income.value)
+        tax_offset_uc = f_low_income(user_income.value);
         total_tax_uc = parseFloat(income_tax_uc) +
                        parseFloat(medicare_uc) -
                        parseFloat(tax_offset_uc);
@@ -171,65 +171,60 @@
         net_income_pw.innerHTML = net_income_pw_uc.toFixed(2);
       }
 
-      // Pie Chart //
-      var ctx = document.getElementById("myChart");
+      parse_html();
 
-      function drawPieChart() {
-          var pieChart = new Chart(ctx, {
-          type: 'pie',
-          data: {
-            labels: ['Net Income', 'Income Tax', 'Medicare'],
-            datasets: [{
-              data: [net_income_uc, income_tax_uc, medicare_uc],
-              backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)'
-              ],
-              borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)'
-              ],
-              borderWidth: 1
-            }],
+      // Pie Chart //
+      var ctx = document.getElementById("pieChart");
+
+      var incomePie = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Net Income', 'Income Tax', 'Medicare'],
+          datasets: [{
+            data: [net_income.innerHTML, income_tax.innerHTML - tax_offset_uc, medicare.innerHTML],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)'
+            ],
+            borderWidth: 1
+          }],
+        },
+        options: {
+          legend: {
+            display: true,
+            position: 'bottom'
           },
-          options: {
-            layout: {
-              padding: {
-                left: 0,
-                right: 0,
-                top: 0,
-                bottom: 0
-              }
-            },
-            legend: {
-              display: true,
-              position: 'bottom'
-            },
-            title: {
-              display: true,
-              text: 'Distribution of Total Income',
-              fontColor: '#ffab1c'
-            }
+          title: {
+            display: true,
+            text: 'Distribution of Total Income',
+            fontColor: '#ffab1c'
           }
-        });
-      }
+        }
+      });
 
       function updatePieChart() {
-        pieChart.data.datasets.data = [1, 2, 3];
-        pieChart.update();
+        incomePie.options.title.display = false;
+        incomePie.data.datasets.forEach(function(dataset) {
+          dataset.data.pop();
+          dataset.data.pop();
+          dataset.data.pop();
+          dataset.data.push(net_income.innerHTML);
+          dataset.data.push(income_tax.innerHTML - tax_offset_uc);
+          dataset.data.push(medicare.innerHTML);
+        });
+        incomePie.update();
       }
 
       user_income.addEventListener("keyup", function(event){
         parse_html();
         updatePieChart();
       });
-
-      parse_html();
-      drawPieChart();
-      updatePieChart();
-
     </script>
   </body>
 </html>
