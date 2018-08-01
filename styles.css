@@ -67,7 +67,7 @@ li a:hover {
   margin: 50px 30px;
 }
 
-.grid-calc {
+.grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto auto;
@@ -106,6 +106,16 @@ li a:hover {
   grid-row: 4 / 5;
 }
 
+.item6 {
+  grid-column: 1 / 3;
+  grid-row: 5 / 6;
+}
+
+.item7 {
+  grid-column: 1 / 3;
+  grid-row: 6 / 7;
+}
+
 .input-title {
   font-size: 1.3em;
   font-weight: bold;
@@ -140,7 +150,7 @@ li a:hover {
 table {
   border-collapse: collapse;
   width: 100%;
-  color: #FFF;
+  color: #b5b5b5;
   text-align: center;
 }
 
@@ -148,9 +158,12 @@ table {
   background-color: #ffab1c;
   border-style: none;
   color: #222;
-  font-size: 1.2em;
   font-weight: bold;
+}
+
+.table-title-style {
   letter-spacing: 15px;
+  font-size: 1.2em;
   width: 100%;
 }
 
@@ -170,20 +183,35 @@ th, td {
   padding: 7px 0;
   font-size: 0.8em;
   font-weight: lighter;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 th {
   background-color: #151515;
-  color: #FFF;
+  color: #999999;
   width: 40%;
 }
 
 td:hover {
   background-color: #333;
+  color: #ffab1c;
 }
 
 .graph-pie {
   width: 100%;
   height: 100%;
+}
+
+.margin-offset-neg {
+  margin-top: -25px;
+}
+
+.margin-offset-pos {
+  margin-top: 25px;
+}
+
+p {
+  font-size: 0.8em;
+  color: #999999;
+  text-align: justify;
 }
