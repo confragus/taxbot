@@ -1,101 +1,284 @@
+<!DOCTYPE html>
+
 <html>
-<head>
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script type="text/javascript">
+  <head>
+    <link href="./styles.css" type="text/css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700" rel="stylesheet">
 
-  </script>
-</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="./Chart.bundle.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
 
-Taxable income: <input type="text" id="user_income" value="50000">
+    </script>
 
-<p>net income: <span id="s_net_income"></span></p>
-<p>per month: <span id="s_net_income_pm"></span></p>
-<p>per week: <span id="s_net_income_pw"></span></p>
+    <title>tax_bot</title>
+  </head>
 
-</br>
+  <body>
+    <div class="limiter">
+      <h1 class="title"><a href="#">tax_bot</a></h1>
 
-<p>tax percent: <span id="s_percent_tax"></span></p>
-<p>tax total: <span id="s_total_tax"></span></p>
-<p>income_tax: <span id="s_income_tax"></span></p>
-<p>medicare: <span id="s_medicare"></span></p>
-<p>tax offset: <span id="s_tax_offset"></span></p>
+      <ul>
+        <li><a href="#more-info">MORE INFORMATION</a></li>
+      </ul>
 
-</br>
+      <div class="limiter-2">
+        <div class="grid">
+          <div class="item1 division-line">
+            <span class="input-title">YOUR TAXABLE INCOME</span>
+            <input type="text" id="user_income" value="50000">
+          </div>
+          <div class="item2">
+            <table>
+              <tr>
+                <th class="table-title table-title-style" colspan="2">INCOME</th>
+              </tr>
+              <tr class="table-important">
+                <th>Net Income</th>
+                <td>$<span id="s_net_income"></span></td>
+              </tr>
+              <tr>
+                <th>Income / month</th>
+                <td>$<span id="s_net_income_pm"></span></td>
+              </tr>
+              <tr>
+                <th>Income / week</th>
+                <td>$<span id="s_net_income_pw"></span></td>
+              </tr>
+            </table>
+          </div>
+          <div class="item3">
+            <table>
+              <tr>
+                <th class="table-title table-title-style" colspan="2">TAX</th>
+              </tr>
+              <tr class="table-important">
+                <th>Total</th>
+                <td>$<span id="s_total_tax"></span></td>
+              </tr>
+              <tr>
+                <th>Tax Percentage</th>
+                <td><span id="s_percent_tax"></span>%</td>
+              </tr>
+              <tr>
+                <th>Income Tax</th>
+                <td>$<span id="s_income_tax"></span></td>
+              </tr>
+              <tr>
+                <th>Medicare</th>
+                <td>$<span id="s_medicare"></span></td>
+              </tr>
+              <tr>
+                <th>Tax Offset</th>
+                <td><span id="s_tax_offset"></span></td>
+              </tr>
+            </table>
+          </div>
+          <div class="item4 division-line"><h2 class="division-title">Graph</h2></div>
+          <div class="item5 graph-pie">
+            <canvas id="pieChart" width="undefined" height="undefined"></canvas>
+          </div>
+          <div class="item6 division-line"><h2 id="more-info" class="division-title">More Information</h2></div>
+          <div class="item7 margin-offset-neg">
+            <p>
+              Australian income tax is levied at progressive tax rates.
+              The lowest bracket is 0%, known as the tax-free rate for individuals on low incomes.
+              Tax rates increase progressively up to 45% for incomes over $180,000.
+              In addition to tax there are additional levies for Medicare and the Temporary Budget Repair Levy.
+              Individuals on incomes below $18200 are also entitled to a Low Income Tax Offset (LITO).
+            </p>
+            <table class="margin-offset-pos">
+              <tr>
+                <th class="table-title">Taxable Income</th>
+                <th class="table-title">Tax On This Income</th>
+              </tr>
+              <tr>
+                <th>$0 – $18,200</th>
+                <td>Nil</td>
+              </tr>
+              <tr>
+                <th>$18,201 – $37,000</th>
+                <td>19c for each $1 over $18,200</td>
+              </tr>
+              <tr>
+                <th>$37,001 – $90,000</th>
+                <td>$3,572 plus 32.5c for each $1 over $37,000</td>
+              </tr>
+              <tr>
+                <th>$90,001 – $180,000</th>
+                <td>$20,797 plus 37c for each $1 over $90,000</td>
+              </tr>
+              <tr>
+                <th>$180,001 and over</th>
+                <td>$54,097 plus 45c for each $1 over $180,000</td>
+              </tr>
+            </table>
+            <p class="margin-offset-pos">
+              Medicare is an Australian health care scheme funded by an income tax levy to provide all Australians with access to free or low cost medical care.
+              From 1 July 2014 the Medicare levy increased by 0.5% from 1.5% to 2% to fund the National Disability Insurance Scheme (NDIS).
+              Taxpayers earning more than $90,000 a year (for singles) or $180,000 a year (for couples and families, 2015 fiscal year and beyond) whom don't have private hospital cover,
+              also have to pay the Medicare Levy Surcharge (MLS).
+              This is a 3 tier levy of 1%, 1.25% and 1.5% tax on top of the 2% Medicare levy.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function f_income_tax(taxable){
+        if( taxable <= 18200) {
+          return 0;
+        }
+        if( taxable <= 37000) {
+          return (taxable-18200)*.19;
+        }
+        if( taxable <= 90000) {
+          return (taxable-37000)*.325+3572;
+        }
+        if( taxable <= 180000) {
+          return (taxable-90000)*.37+20797;
+        }
+        if( taxable > 180000) {
+          return (taxable-180000)*.45+54097;
+        }
+      }
 
-<script>
-  function f_income_tax(taxable){
-    if( taxable <= 18200) {
-      return 0;
-    }
-    if( taxable <= 37000) {
-      return (taxable-18200)*.19;
-    }
-    if( taxable <= 90000) {
-      return (taxable-37000)*.325+3572;
-    }
-    if( taxable <= 18000) {
-      return (taxable-90000)*.37+20797;
-    }
-    if( taxable > 18000) {
-      return (taxable-18000)*.45+54097;
-    }
-  }
+      function f_medicare(taxable){
+        if( taxable <= 21980) {
+          return 0;
+        }
+        if (taxable <= 27475) {
+          return 0.1*(taxable-21980);
+        }
+        else {
+          return 0.02*taxable;
+        }
+      }
 
-  function f_medicare(taxable){
-    if( taxable <= 21980) {
-      return 0;
-    }
-    if (taxable <= 27475) {
-      return 0.1*(taxable-21980);
-    }
-    else {
-      return 0.02*taxable;
-    }
-  }
+      function f_low_income(taxable){
+        if( taxable <= 37000) {
+          return 445;
+        }
+        if (taxable <= 66667) {
+          return 445 - 0.015*(taxable - 37000);
+        }
+        else {
+          return 0
+        }
+      }
 
-  function f_low_income(taxable){
-    if( taxable <= 37000) {
-      return 445;
-    }
-    if (taxable <= 66667) {
-      return 445 - 0.015*(taxable - 37000);
-    }
-    else {
-      return 0
-    }
-  }
+      function f_tax_percent(taxable){
+        return (f_income_tax(taxable) + f_medicare(taxable) - f_low_income(taxable)) / taxable
+      }
 
-  function f_tax_percent(taxable){
-    return (f_income_tax(taxable) + f_medicare(taxable) - f_low_income(taxable)) / taxable
-  }
+      var user_income = document.getElementById('user_income');
+      var income_tax = document.getElementById('s_income_tax');
+      var medicare = document.getElementById('s_medicare');
+      var percent_tax = document.getElementById('s_percent_tax');
+      var total_tax = document.getElementById('s_total_tax');
+      var net_income = document.getElementById('s_net_income');
+      var tax_offset = document.getElementById('s_tax_offset');
+      var net_income_pm = document.getElementById('s_net_income_pm');
+      var net_income_pw = document.getElementById('s_net_income_pw');
+      var income_tax_uc;
+      var medicare_uc;
+      var percent_tax_uc;
+      var total_tax_uc;
+      var net_income_uc;
+      var tax_offset_uc;
+      var net_income_pm_uc;
+      var net_income_pw_uc;
 
-  var user_income = document.getElementById('user_income');
-  var income_tax = document.getElementById('s_income_tax');
-  var medicare = document.getElementById('s_medicare');
-  var percent_tax = document.getElementById('s_percent_tax');
-  var total_tax = document.getElementById('s_total_tax');
-  var net_income = document.getElementById('s_net_income');
-  var tax_offset = document.getElementById('s_tax_offset');
-  var net_income_pm = document.getElementById('s_net_income_pm');
-  var net_income_pw = document.getElementById('s_net_income_pw');
+      function addCommas(nStr) {
+        nStr += '';
+        x = nStr.split('.');
+        x1 = x[0];
+        x2 = x.length > 1 ? ',' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+          x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        }
+        return x1 + x2;
+      }
 
-  function parse_html(){
-    income_tax.innerHTML = f_income_tax(user_income.value);
-    medicare.innerHTML = f_medicare(user_income.value);
-    tax_offset.innerHTML = -f_low_income(user_income.value)
-    total_tax.innerHTML = parseFloat(income_tax.innerHTML) + 
-                          parseFloat(medicare.innerHTML) + 
-                          parseFloat(tax_offset.innerHTML);
-    percent_tax.innerHTML =  f_tax_percent(user_income.value);                  
-    net_income.innerHTML = user_income.value - parseFloat(total_tax.innerHTML);
-    net_income_pm.innerHTML = parseFloat(net_income.innerHTML)/12;
-    net_income_pw.innerHTML = parseFloat(net_income.innerHTML)/52;
-  }
+      function parse_html(){
+        income_tax_uc = (f_income_tax(user_income.value)).toFixed(0);
+        medicare_uc = (f_medicare(user_income.value)).toFixed(0);
+        tax_offset_uc = (f_low_income(user_income.value)).toFixed(0);
+        total_tax_uc = (parseFloat(income_tax_uc) +
+                       parseFloat(medicare_uc) -
+                       parseFloat(tax_offset_uc)).toFixed(0);
+        percent_tax_uc =  (f_tax_percent(user_income.value) * 100).toFixed(0);
+        net_income_uc = (user_income.value - parseFloat(total_tax_uc)).toFixed(0);
+        net_income_pm_uc = (parseFloat(net_income_uc)/12).toFixed(0);
+        net_income_pw_uc = (parseFloat(net_income_uc)/52).toFixed(0);
 
-  user_income.addEventListener("keyup", function(event){
-    parse_html();
-  });
+        income_tax.innerHTML = addCommas(income_tax_uc);
+        medicare.innerHTML = addCommas(medicare_uc);
+        tax_offset.innerHTML = "(-$" + addCommas(tax_offset_uc) + ")";
+        total_tax.innerHTML = addCommas(total_tax_uc);
+        percent_tax.innerHTML = percent_tax_uc;
+        net_income.innerHTML = addCommas(net_income_uc);
+        net_income_pm.innerHTML = addCommas(net_income_pm_uc);
+        net_income_pw.innerHTML = addCommas(net_income_pw_uc);
+      }
 
-  parse_html();
+      parse_html();
 
-</script>
+      // Pie Chart //
+      var ctx = document.getElementById("pieChart");
+
+      var incomePie = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Net Income', 'Income Tax', 'Medicare'],
+          datasets: [{
+            data: [net_income_uc, income_tax_uc - tax_offset_uc, medicare_uc],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)'
+            ],
+            borderWidth: 1
+          }],
+        },
+        options: {
+          legend: {
+            display: true,
+            position: 'bottom'
+          },
+          title: {
+            display: true,
+            text: 'Distribution of Total Income',
+            fontColor: '#ffab1c'
+          }
+        }
+      });
+
+      function updatePieChart() {
+        incomePie.data.datasets.forEach(function(dataset) {
+          dataset.data.pop();
+          dataset.data.pop();
+          dataset.data.pop();
+          dataset.data.push(net_income_uc);
+          dataset.data.push(income_tax_uc - tax_offset_uc);
+          dataset.data.push(medicare_uc);
+        });
+        incomePie.update();
+      }
+      // Pie Chart End //
+
+      user_income.addEventListener("keyup", function(event){
+        parse_html();
+        updatePieChart();
+      });
+    </script>
+  </body>
+</html>
